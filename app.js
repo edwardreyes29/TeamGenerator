@@ -13,6 +13,139 @@ const render = require("./lib/htmlRenderer");
 
 // Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)
+// array of questions for user
+const questions = [
+    {
+        type: "input",
+        message: "What is your manager's name?",
+        name: "name"
+    },
+    {
+        type: "input",
+        message: "What is your manager's id?",
+        name: "id"
+    },
+    {
+        type: "input",
+        message: "What is your manager's email?",
+        name: "email"
+    },
+    {
+        type: "input",
+        message: "What is your manager's office number?",
+        name: "office_number"
+    },
+    {
+        type: "list",
+        message: "What type of team member would you like to add?",
+        name: "member_choice",
+        choices: [
+            'Engineer',
+            'Intern',
+            'I don\'t want any more team members'
+        ]
+    }
+];
+
+const internQuestions = [
+    {
+        type: "input",
+        message: "What is your intern's name?",
+        name: "name"
+    },
+    {
+        type: "input",
+        message: "What is your intern's id?",
+        name: "id"
+    },
+    {
+        type: "input",
+        message: "What is your intern's email?",
+        name: "email"
+    },
+    {
+        type: "input",
+        message: "What is your intern's school?",
+        name: "school"
+    },
+    {
+        type: "list",
+        message: "What type of team member would you like to add?",
+        name: "member_choice",
+        choices: [
+            'Engineer',
+            'Intern',
+            'I don\'t want any more team members'
+        ]
+    }
+];
+
+const engineerQuestions = [
+    {
+        type: "input",
+        message: "What is your engineer's name?",
+        name: "name"
+    },
+    {
+        type: "input",
+        message: "What is your engineer's id?",
+        name: "id"
+    },
+    {
+        type: "input",
+        message: "What is your engineer's email?",
+        name: "email"
+    },
+    {
+        type: "input",
+        message: "What is your engineer's GitHub username?",
+        name: "github"
+    },
+    {
+        type: "list",
+        message: "What type of team member would you like to add?",
+        name: "member_choice",
+        choices: [
+            'Engineer',
+            'Intern',
+            'I don\'t want any more team members'
+        ]
+    }
+];
+
+var employees = [];
+// function to initialize program
+async function getEmployees() {
+    let memberChoice = await inquirer.prompt(questions)
+    .then(function(response) {
+        const manager = new Manager(response.name, response. id, response.email, response.office_number);
+        employees.push(manager);
+        return response.member_choice;
+    })
+
+    while (memberChoice !== 'I don\'t want any more team members') {
+        if (memberChoice === 'Intern') {
+            memberChoice = await inquirer.prompt(internQuestions)
+            .then(function(response) {
+                const intern = new Intern(response.name, response. id, response.email, response.school);
+                employees.push(intern);
+                return response.member_choice;
+            })
+        } else {
+            memberChoice = await inquirer.prompt(engineerQuestions)
+            .then(function(response) {
+                const engineer = new Engineer(response.name, response. id, response.email, response.github);
+                employees.push(engineer);
+                return response.member_choice;
+            })
+        }
+    }
+
+    console.log(employees);
+}
+// function call to initialize program
+getEmployees();
+
 
 // After the user has input all employees desired, call the `render` function (required
 // above) and pass in an array containing all employee objects; the `render` function will
