@@ -114,7 +114,7 @@ const engineerQuestions = [
 ];
 
 var employees = [];
-// function to initialize program
+
 async function getEmployees() {
     let memberChoice = await inquirer.prompt(questions)
     .then(function(response) {
