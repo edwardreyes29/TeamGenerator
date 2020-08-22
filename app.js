@@ -29,7 +29,10 @@ const questions = [
     {
         type: "input",
         message: "What is your manager's email?",
-        name: "email"
+        name: "email",
+        validate: function(name) {
+            return  emailIsValid(name) || 'Please enter a number (hit up first then delete to try again).';
+        }
     },
     {
         type: "input",
@@ -62,7 +65,10 @@ const internQuestions = [
     {
         type: "input",
         message: "What is your intern's email?",
-        name: "email"
+        name: "email",
+        validate: function(name) {
+            return  emailIsValid(name) || 'Please enter a number (hit up first then delete to try again).';
+        }
     },
     {
         type: "input",
@@ -95,7 +101,10 @@ const engineerQuestions = [
     {
         type: "input",
         message: "What is your engineer's email?",
-        name: "email"
+        name: "email",
+        validate: function(name) {
+            return  emailIsValid(name) || 'Please enter a number (hit up first then delete to try again).';
+        }
     },
     {
         type: "input",
@@ -174,10 +183,6 @@ function writeHTML(renderedHTML) {
     })
 }
 
-
-
-
-
 // HINT: each employee type (manager, engineer, or intern) has slightly different
 // information; write your code to ask different questions via inquirer depending on
 // employee type.
@@ -187,3 +192,8 @@ function writeHTML(renderedHTML) {
 // for further information. Be sure to test out each class and verify it generates an
 // object with the correct structure and methods. This structure will be crucial in order
 // for the provided `render` function to work! ```
+
+// Bonus
+function emailIsValid(email) {
+    return /\S+@\S+\.\S+/.test(email)
+}
