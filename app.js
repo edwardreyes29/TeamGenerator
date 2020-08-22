@@ -157,7 +157,7 @@ async function getEmployees() {
     if (fs.existsSync(OUTPUT_DIR)) {
         console.log('The path exists.');
         writeHTML(renderedHTML)
-    }else {
+    } else {
         console.log("File does not exist")
         fs.mkdir(OUTPUT_DIR, { recursive: true }, (err) => {
             if (err) throw err;
